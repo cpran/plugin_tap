@@ -1,0 +1,41 @@
+procedure plan: .tests
+  if variableExists("plan.test")
+    if .test < .previous_tests
+      exitScript: "New plan started before old was completed"
+    endif
+  endif
+  appendFileLine: ".tap", "1.." + string$(.tests)
+  .previous_tests = .tests
+  .test = 0
+  .failed = 0
+endproc
+
+procedure ok: .value, .name$
+  if !variableExists("plan.test")
+    exitScript: "No test plan"
+  endif
+  plan.test += 1
+  if plan.test > plan.tests
+    exitScript: "Unplanned test"
+  endif
+
+  appendFile: ".tap", if .value then "" else "not " fi + "ok " +
+    ... string$(plan.test)
+  appendFileLine: ".tap", if .name$ != "" then " - " + .name$ else "" fi
+
+  plan.failed += if !.value then 1 else 0 fi
+  if plan.test = plan.tests
+    appendFileLine: ".tap",
+      ... if plan.failed = 0 then "# All tests passed" else
+      ... "# Failed " + string$(plan.failed) + " out of " + string$(plan.tests) + " tests" fi
+  endif
+endproc
+
+procedure done_testing ()
+  if !variableExists("plan.test")
+    exitScript: "No test plan"
+  endif
+  if plan.test < plan.tests
+    exitScript: "Incomplete test suite"
+  endif
+endproc
