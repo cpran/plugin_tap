@@ -4,15 +4,15 @@ Homepage: https://gitlab.com/cpran/plugin_testsimple
 Version: 0.0.1
 Maintainer: José Joaquín Atria <jjatria@gmail.com>
 Depends:
-  - praat: 5.0.0+
+  praat: 5.0.0+
 Recommends:
 License: GPL3
 Readme: readme.md
 Description:
-  - Short: simple implementation of the Test Anything Protocol
-  - Long: >
-      The Test Anything Protocol (TAP) offers a unified format for a stream of
-      test results that can be used for all sorts of testing.
+  Short: simple implementation of the Test Anything Protocol
+  Long: >
+    The Test Anything Protocol (TAP) offers a unified format for a stream of
+    test results that can be used for all sorts of testing.
 
-      This plugin implements a basic interface to set up tests in Praat scripts.
-      It is heavily influenced by the similarly named CPAN module.
+    This plugin implements a basic interface to set up tests in Praat scripts.
+    It is heavily influenced by the similarly named CPAN module.
