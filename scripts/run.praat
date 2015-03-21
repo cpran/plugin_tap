@@ -1,11 +1,11 @@
 form Run tests...
-  sentence Test_directory "./tests"
+  sentence Test_directory "./t"
 endform
 
 test_directory$ = test_directory$ + if right$(test_directory$) = "/" then "" else "/" fi
 deleteFile: test_directory$ + ".tap"
 
-tests = Create Strings as file list: "tests", test_directory$ + "/t_*praat"
+tests = Create Strings as file list: "tests", test_directory$ + "/*t"
 n = Get number of strings
 
 appendFileLine: ".tap", "# Preparing to run " + string$(n) + " test sets"
