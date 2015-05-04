@@ -4,7 +4,7 @@ procedure plan: .tests
       exitScript: "New plan started before old was completed"
     endif
   endif
-  appendFileLine: ".tap", "1.." + string$(.tests)
+  appendInfoLine: "1.." + string$(.tests)
   .previous_tests = .tests
   .test = 0
   .failed = 0
@@ -19,15 +19,15 @@ procedure ok: .value, .name$
     exitScript: "Unplanned test"
   endif
 
-  appendFile: ".tap", if .value then "" else "not " fi + "ok " +
+  appendInfo: if .value then "" else "not " fi + "ok " +
     ... string$(plan.test)
-  appendFileLine: ".tap", if .name$ != "" then " - " + .name$ else "" fi
+  appendInfoLine: if .name$ != "" then " - " + .name$ else "" fi
 
   plan.failed += if !.value then 1 else 0 fi
   if plan.test = plan.tests
-    appendFileLine: ".tap",
-      ... if plan.failed = 0 then "# All tests passed" else
-      ... "# Failed " + string$(plan.failed) + " out of " + string$(plan.tests) + " tests" fi
+    #appendInfoLine: if plan.failed = 0 then
+    #  ... "# All tests passed" else
+    #  ... "# Failed " + string$(plan.failed) + " out of " + string$(plan.tests) + " tests" fi
   endif
 endproc
 
