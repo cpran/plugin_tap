@@ -4,10 +4,16 @@ procedure plan: .tests
       exitScript: "New plan started before old was completed"
     endif
   endif
-  appendInfoLine: "1.." + string$(.tests)
-  .previous_tests = .tests
+  if .tests != undefined
+    appendInfoLine: "1.." + string$(.tests)
+    .previous_tests = .tests
+  endif
   .test = 0
   .failed = 0
+endproc
+
+procedure no_plan ()
+  @plan: undefined
 endproc
 
 procedure ok: .value, .name$
@@ -15,13 +21,13 @@ procedure ok: .value, .name$
     exitScript: "No test plan"
   endif
   plan.test += 1
-  if plan.test > plan.tests
+  if plan.tests != undefined and plan.test > plan.tests
     exitScript: "Unplanned test"
   endif
 
   appendInfo: if .value then "" else "not " fi + "ok " +
     ... string$(plan.test)
-  appendInfoLine: if .name$ != "" then " - " + .name$ else "" fi
+  appendInfoLine: if .name$ != "" then " " + .name$ else "" fi
 
   plan.failed += if !.value then 1 else 0 fi
   if plan.test = plan.tests
@@ -35,7 +41,11 @@ procedure done_testing ()
   if !variableExists("plan.test")
     exitScript: "No test plan"
   endif
-  if plan.test < plan.tests
-    exitScript: "Incomplete test suite"
+  if plan.tests == undefined
+    appendInfoLine: "1..", plan.test
+  else
+    if plan.test < plan.tests
+      exitScript: "Incomplete test suite"
+    endif
   endif
 endproc
