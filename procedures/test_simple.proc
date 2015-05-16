@@ -51,11 +51,15 @@ procedure ok: .value, .name$
     endif
   endif
 
-
   appendInfo: if .value then "" else "not " fi +
     ... "ok " + string$(plan.test)
 
   appendInfoLine: if .name$ != "" then " - " + .name$ else "" fi
+endproc
+
+procedure ok_formula: .formula$, .name$
+  .value = Calculator: .formula$
+  @ok(.value, .name$)
 endproc
 
 # SKIP procedures
