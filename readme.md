@@ -4,7 +4,7 @@ testsimple
 Description
 -----------
 
-A simple test framework for Praat, using the [Test Anything ProtocolTAP][tap].
+A simple test framework for Praat, using the [Test Anything Protocol][tap].
 Its functionality is based heavily on that of
 [Test::Simple](https://metacpan.org/pod/Test::Simple).
 
