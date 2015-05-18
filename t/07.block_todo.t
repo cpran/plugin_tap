@@ -7,7 +7,7 @@ include ../procedures/test_simple.proc
 @todo(undefined, "testing todo()")
 @ok(0, "failing test")
 
-@done_todo()
+@end_todo()
 @ok(1, "successful test")
 
 @done_testing()

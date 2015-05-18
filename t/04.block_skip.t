@@ -7,7 +7,7 @@ include ../procedures/test_simple.proc
 @skip(undefined, "skipping until done_skipping()")
 @ok(0, "this should not display")
 
-@done_skipping()
+@end_skip()
 @ok(1, "")
 
 @done_testing()
