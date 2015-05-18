@@ -72,7 +72,7 @@ procedure skip_all: .why$
   @skip(undefined, .why$)
 endproc
 
-procedure done_skipping ()
+procedure end_skip ()
   if !variableExists("skip_all.keep_skipping")
     plan.skipping = 0
   endif
@@ -83,7 +83,7 @@ procedure todo: .how_many, .why$
   plan.todo = if .how_many = undefined then -1 else .how_many fi
 endproc
 
-procedure done_todo ()
+procedure end_todo ()
   plan.todo = 0
 endproc
 

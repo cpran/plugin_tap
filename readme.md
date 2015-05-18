@@ -45,7 +45,7 @@ Synopsis
     for i to randomInteger(5,10)
       @ok(0, "")                    ; all these will be skipped
     endfor
-    @done_skipping()
+    @end_skip()
     @ok(0, "failing test")          ; this one will fail!
 
     # You can mark tests as work in progress
@@ -54,12 +54,11 @@ Synopsis
     @ok(brimed$, "try briming")
 
     # Or mark a whole block as TODO
-    # You can skip all tests until a certain point
     @todo(undefined, "more tests as TODO")
     for i to randomInteger(5,10)
-      @ok(0, "")                    ; all these will be skipped
+      @ok(0, "")                    ; all these will be marked as TODO
     endfor
-    @done_todo()
+    @end_todo()
 
     # Mark the end of your suite
     @done_testing()
