@@ -4,7 +4,7 @@ include ../procedures/test_simple.proc
 
 @ok(1, "")
 
-@skip_all("skipping past done_skipping()")
+@skip_all("skipping past end_skip()")
 @ok(0, "this should not display")
 
 @end_skip()
