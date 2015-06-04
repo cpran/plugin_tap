@@ -1,7 +1,7 @@
 ---
 Plugin: testsimple
 Homepage: https://gitlab.com/cpran/plugin_testsimple
-Version: 0.0.5
+Version: 0.0.6
 Maintainer: José Joaquín Atria <jjatria@gmail.com>
 Depends:
   praat: 5.0.0+
@@ -22,4 +22,3 @@ Description:
     incomplete tests. This is possible both for a specified number of tests,
     and as a test block. Mass skipping, and test-suite interruption are
     also possible.
-
