@@ -1,4 +1,4 @@
-testsimple
+testsimple [![build badge][badge]][build]
 ==========
 
 Description
@@ -67,3 +67,6 @@ Requirements
 ------------
 
 None
+
+[badge]: https://ci.gitlab.com/projects/2843/status.png?ref=master
+[build]: https://ci.gitlab.com/projects/2843
