@@ -5,10 +5,10 @@ Description
 -----------
 
 A simple test framework for Praat, using the [Test Anything Protocol][tap].
-Its functionality is based heavily on that of
-[Test::Simple](https://metacpan.org/pod/Test::Simple).
+Its functionality is based heavily on that of [Test::Simple][]
 
 [tap]: http://testanything.org
+[Test::Simple]: https://metacpan.org/pod/Test::Simple
 
 Synopsis
 --------
@@ -21,17 +21,22 @@ Synopsis
     endif
 
     # Plan your test suite
-    @no_plan()
-    # or @plan(total_tests) if you know how many tests you'll run
+    @plan(total_tests)
+    # or @no_plan() if you don't know how many tests you'll run
 
     # Run your tests
     # @ok() interprets the first argument as boolean
+    # and the second argument as the name of the test
     @ok(1, "1 is true")
-    @ok(if selected$("Sound") = "tone" then 1 else 0 fi,
+    @ok(if selected$("Sound") == "tone" then 1 else 0 fi,
+      ... "selected sound is tone")
+    # or more succinctly
+    @ok(selected$("Sound") == "tone",
       ... "selected sound is tone")
 
     # You can also use formulas
-    @ok_formula("selected$(""Sound"") = ""tone""", "selected sound is tone")
+    @ok_formula("selected$(""Sound"") == ""tone""",
+      ... "selected sound is tone")
 
     # Skip n tests that are known to fail
     @skip(2, "skip next two tests)
