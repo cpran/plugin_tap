@@ -1,0 +1,21 @@
+- v0.0.7:
+  - Improved code comments
+  - Improved licensing information
+  - Added this change log
+  - Improved documentation
+  - Added CI support
+- v0.0.6:
+  - Added ok_formula
+  - Improved tests
+- v0.0.5:
+  - Added SKIP and TODO procedures
+  - Added support for bailing out
+  - Removed test scripts
+- v0.0.4:
+  - Results now printed to the Info window
+  - Expanded tests
+- v0.0.2:
+  - Renamed run script
+  - Default tests are t/*.t
+  - Changes to descriptor
+  - First working version
