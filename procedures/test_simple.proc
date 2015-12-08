@@ -105,7 +105,11 @@ endproc
 # Second argument is the name of the test
 #
 procedure ok_formula: .formula$, .name$
-  .value = Calculator: .formula$
+  if plan.skipping != undefined and !plan.skipping
+    .value = Calculator: .formula$
+  else
+    .value = 1
+  endif
   @ok(.value, .name$)
 endproc
 
