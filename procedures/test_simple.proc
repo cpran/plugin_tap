@@ -31,6 +31,8 @@ procedure plan: .total_tests
     exitScript: "Already running a test plan"
   endif
 
+  ok_selection.original = numberOfSelected()
+
   if .total_tests != undefined
     appendInfoLine: "1..", .total_tests
   endif
@@ -111,6 +113,27 @@ procedure ok_formula: .formula$, .name$
     .value = 1
   endif
   @ok(.value, .name$)
+endproc
+
+# Test whether objects created during testing have been removed
+#
+procedure ok_selection ()
+  select all
+  .current = numberOfSelected()
+  .result = .current == .original
+
+  @ok: .result, "Removed all local objects"
+
+  if !.result
+    for .i to .current
+      .id[.i] = selected(.i)
+    endfor
+    for .i to .current
+      selectObject: .id[.i]
+      appendInfoLine: "# " + selected$()
+    endfor
+    select all
+  endif
 endproc
 
 #
