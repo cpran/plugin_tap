@@ -1,3 +1,11 @@
+- next: # unreleased
+- v0.0.8:
+  - New:
+    - ok_selection checks that selection is the same as when
+      the plan was stated
+    - Added more tests for ok procedures
+  - Changes:
+    - ok_formula no longer runs formulas in skipped tests
 - v0.0.7:
   - Improved code comments
   - Improved licensing information
