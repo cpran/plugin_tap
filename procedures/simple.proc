@@ -57,7 +57,18 @@ procedure plan: .total_tests
     exitScript: "Already running a test plan"
   endif
 
+  .n = numberOfSelected()
+  for .i to .n
+    .id[.i] = selected(.i)
+  endfor
+
+  select all
   ok_selection.original = numberOfSelected()
+
+  nocheck selectObject: undefined
+  for .i to .n
+    plusObject: .id[.i]
+  endfor
 
   if .total_tests != undefined
     appendInfoLine: "1..", .total_tests
