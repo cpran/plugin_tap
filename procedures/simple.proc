@@ -75,9 +75,9 @@ procedure plan: .total_tests
   endif
 
   .current_plan = .total_tests
-  .test     = 0
-  .skipping = 0
-  .todo     = 0
+  .test = 0
+  .skip = 0
+  .todo = 0
 endproc
 
 #! ~~~ params
@@ -161,8 +161,8 @@ procedure _simple_ok ()
 
   plan.test += 1
 
-  if plan.skipping == undefined or plan.skipping
-    plan.skipping -= 1
+  if plan.skip == undefined or plan.skip
+    plan.skip -= 1
     ok.value = 1
     ok.skip = 1
   elsif plan.todo == undefined or plan.todo
@@ -202,7 +202,7 @@ endproc
 #! and those that evaluate to `false` will fail.
 #!
 procedure ok_formula: .formula$, .name$
-  if plan.skipping != undefined and !plan.skipping
+  if plan.skip != undefined and !plan.skip
     .value = Calculator: .formula$
   else
     .value = 1
