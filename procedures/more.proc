@@ -1,5 +1,3 @@
-# A test suite for Praat with diagnostics for filing tests
-#
 # This script is part of the testsimple CPrAN plugin for Praat.
 # The latest version is available through CPrAN or at
 # <http://cpran.net/plugins/testsimple>
@@ -17,11 +15,39 @@
 # You should have received a copy of the GNU General Public License
 # along with selection. If not, see <http://www.gnu.org/licenses/>.
 #
-# Copyright 2016 Jose Joaquin Atria
+# Copyright 2015-2016 Jose Joaquin Atria
 
-#
-# Planning procedures
-#
+#!
+#! # A test suite for Praat with diagnostics
+#!
+#! Unlike the procedures in `simple.proc`, these procedure implement
+#! testing interface for Praat modeled after the Test::More Perl module.
+#! With it, diagnostics for failing tests can be obtained, making error
+#! reports a bit more informative.
+#!
+#! If you already use the procedures in `simple.proc`, you can
+#! change into using these procedures without changing your code at all.
+#! You won't fully benefit from the procedures in this file, however,
+#! until you do make those changes.
+#!
+
+#!
+#! # Procedure overrides
+#!
+
+#! ~~~ params
+#! in:
+#!   .value: >
+#!     A test value, interpreted as a boolean: `true` means success,
+#!     `false` means failure.
+#!   .name$: >
+#!     The name of the test. A descriptive string with which to identify it.
+#! out: Internally calls `@_simple_ok`
+#! ~~~
+#!
+#! The basic exposed test procedure. Failing tests will also be marked with
+#! an additional diagnostic line.
+#!
 procedure ok: .value, .name$
   @_simple_ok()
 
@@ -31,8 +57,18 @@ procedure ok: .value, .name$
   endif
 endproc
 
-# Test whether objects created during testing have been removed
-#
+#! ~~~ params
+#! out: Internally calls `@ok`.
+#! ~~~
+#!
+#! Test whether objects created during testing have been removed. The check
+#! is made by comparing the number of objects when the plan was specified
+#! to the number of objects when the test was called. If they are different,
+#! the test will fail.
+#!
+#! If the test fails, a list of the objects remaining in the list will be
+#! printed, with their names and ID numbers.
+#!
 procedure ok_selection ()
   select all
   .current = numberOfSelected()
