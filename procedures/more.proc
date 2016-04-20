@@ -23,7 +23,7 @@
 # Planning procedures
 #
 procedure ok: .value, .name$
-  @_simple_ok: .value, .name$
+  @_simple_ok()
 
   .todo$ = if ok.todo then "(TODO) " else "" fi
   if !ok.value

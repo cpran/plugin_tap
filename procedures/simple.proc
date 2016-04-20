@@ -77,10 +77,29 @@ endproc
 # Second argument is the name of the test.
 #
 procedure ok: .value, .name$
-  @_simple_ok: .value, .name$
+  @_simple_ok()
 endproc
 
-procedure _simple_ok: ok.value, ok.name$
+#! ~~~ params
+#! out:
+#!   ok.skip: >
+#!     Set to `true` if the test was skipped, `false` otherwise.
+#!   ok.todo: >
+#!     Set to `true` if the test was marked as TODO, `false` otherwise.
+#!   ok.value: >
+#!     The return value of the test.
+#!   plan.test: >
+#!     The index of the test. Each call to this procedure increments this
+#!     variable.
+#! ~~~
+#!
+#! The basic logic for the test procedure. Takes a boolean value and prints
+#! a TAP-compliant result based on its value. The SKIP and TODO states are
+#! read from `plan.skip` and `plan.todo` respectively, which are set in
+#! `@skip`, `@skip_all`, and `@end_skip` for SKIP, and `@todo` and
+#! `@end_todo` for TODO.
+#!
+procedure _simple_ok ()
   if !variableExists("plan.current_plan")
     exitScript: "No test plan"
   endif
