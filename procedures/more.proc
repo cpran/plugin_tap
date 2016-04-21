@@ -75,21 +75,38 @@ endproc
 #!
 procedure ok_selection ()
   select all
-  .current = numberOfSelected()
-  .result = .current == .original
+  minusObject: plan.original
+  @_testsimple_saveSelection: "final_selection"
+  .current = '_testsimple_saveSelection.table'
 
-  @ok: .result, "Removed all local objects"
+  @ok: Object_'plan.original'.nrow == Object_'.current'.nrow,
+    ... "Removed all local objects"
+
   if !ok.value
-    @diag: "  these objects remained in the list:"
-    for .i to .current
-      .id[.i] = selected(.i)
-    endfor
-    for .i to .current
-      selectObject: .id[.i]
-      @diag: "  - " + string$(.id[.i]) + ". " + selected$()
-    endfor
-    select all
+    if Object_'plan.original'.nrow > Object_'.current'.nrow
+      @diag: "  these original objects are missing:"
+      for .i to Object_'plan.original'.nrow
+        .oid = Object_'plan.original'[.i, "id"]
+        .name$ = Object_'plan.original'$[.i, "id"] + ". " +
+          ... Object_'plan.original'$[.i, "type"]  + " "  +
+          ... Object_'plan.original'$[.i, "name"]
+
+        @_ok_objectExists: .oid
+        if !'_ok_objectExists.return'
+          @diag: "  - " + .name$
+        endif
+      endfor
+    elsif Object_'plan.original'.nrow < Object_'.current'.nrow
+      @diag: "  these objects remain in the list:"
+      @_testsimple_restoreSelection: .current
+      @_testsimple_minusSelection: plan.original
+      for .i to numberOfSelected()
+        @diag: "  - " + selected$(.i)
+      endfor
+    endif
   endif
+
+  removeObject: .current
 endproc
 
 include ../../plugin_testsimple/procedures/simple.proc
