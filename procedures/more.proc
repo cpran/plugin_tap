@@ -31,6 +31,10 @@
 #! until you do make those changes.
 #!
 
+if !variableExists("diag.prefix$")
+  diag.prefix$ = "#   "
+endif
+
 #!
 #! # Procedure overrides
 #!
@@ -139,7 +143,9 @@ procedure isnt: .got, .expected, .msg$
 endproc
 
 procedure diag: .msg$
-  appendInfoLine: "#   ", .msg$
+  .msg$ = .prefix$ + .msg$
+  .msg$ = replace_regex$(.msg$, newline$, newline$ + .prefix$, 0)
+  appendInfoLine: .msg$
 endproc
 
 procedure like: .got$, .pattern$, .msg$
