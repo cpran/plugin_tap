@@ -1,5 +1,12 @@
 - next: # unreleased
 - v0.0.9:
+  - New:
+    - Inherited development from testsimple
+    - Procedures are now broken into two:
+      * simple.proc, that offers the interface in Test::Simple
+      * more.proc, which offers that of Test::More
+    - Changing from simple.proc to more.proc can be done without
+      changing code in source.
   - Changes:
     - ok_selection procedures now make smarter object comparisons
     - diag procedure in more.proc processes multiline messages

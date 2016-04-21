@@ -1,19 +1,21 @@
-testsimple [![build badge][badge]][build]
-==========
+tap
+===
 
 Description
 -----------
 
-A simple test framework for Praat, using the [Test Anything Protocol][tap].
-Its functionality is based heavily on that of [Test::Simple][]
+An implementation of the [Test Anything Protocol][tap] for Praat.
+The interface exposed by this plugin borrows from those in [Test::Simple][]
+and [Test::More][].
 
 [tap]: http://testanything.org
 [Test::Simple]: https://metacpan.org/pod/Test::Simple
+[Test::More]: https://metacpan.org/pod/Test::More
 
 Synopsis
 --------
 
-    include /path/to/test_simple.proc
+    include /path/to/plugin_tap/procedures/simple.proc
 
     # Abort testing in critical case
     if cricital_failure
@@ -72,6 +74,3 @@ Requirements
 ------------
 
 None
-
-[badge]: https://ci.gitlab.com/projects/2843/status.png?ref=master
-[build]: https://ci.gitlab.com/projects/2843
