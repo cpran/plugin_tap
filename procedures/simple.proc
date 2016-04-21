@@ -123,13 +123,13 @@ endproc
 #!     `false` means failure.
 #!   .name$: >
 #!     The name of the test. A descriptive string with which to identify it.
-#! out: Internally calls `@_simple_ok`
+#! out: Internally calls `@_testsimple_ok`
 #! ~~~
 #!
 #! The basic exposed test procedure.
 #!
 procedure ok: .value, .name$
-  @_simple_ok()
+  @_testsimple_ok()
 endproc
 
 #! ~~~ params
@@ -151,7 +151,7 @@ endproc
 #! `@skip`, `@skip_all`, and `@end_skip` for SKIP, and `@todo` and
 #! `@end_todo` for TODO.
 #!
-procedure _simple_ok ()
+procedure _testsimple_ok ()
   if !variableExists("plan.current_plan")
     exitScript: "No test plan"
   endif

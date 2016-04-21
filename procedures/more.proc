@@ -46,14 +46,14 @@ endif
 #!     `false` means failure.
 #!   .name$: >
 #!     The name of the test. A descriptive string with which to identify it.
-#! out: Internally calls `@_simple_ok`
+#! out: Internally calls `@_testsimple_ok`
 #! ~~~
 #!
 #! The basic exposed test procedure. Failing tests will also be marked with
 #! an additional diagnostic line.
 #!
 procedure ok: .value, .name$
-  @_simple_ok()
+  @_testsimple_ok()
 
   .todo$ = if ok.todo then "(TODO) " else "" fi
   if !ok.value
