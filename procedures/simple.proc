@@ -356,3 +356,72 @@ procedure bail_out: .why$
   appendInfoLine: "Bail out! ", .why$
   exitScript()
 endproc
+
+#! ~~~ params
+#! out:
+#!   .table: >
+#!     The ID of a selection table
+#! internal: true
+#! ~~~
+#!
+#! Save a selection as a selection table, compatible with those from the
+#! selection plugin.
+#!
+procedure _testsimple_saveSelection: .name$
+  .name$ = if .name$ == "" then "test_selection" else .name$ fi
+
+  .n = numberOfSelected()
+  for .i to .n
+    .id[.i] = selected(.i)
+  endfor
+  .table = Create Table with column names: .name$, 0,
+    ... "type name n id"
+  for .i to .n
+    selectObject: .id[.i]
+    .type$ = extractWord$(selected$(), "")
+    .name$ = extractWord$(selected$(), " ")
+    selectObject: .table
+    Append row
+    Set string value:  Object_'.table'.nrow, "type", .type$
+    Set string value:  Object_'.table'.nrow, "name", .name$
+    Set numeric value: Object_'.table'.nrow, "id",   .id[.i]
+    Set numeric value: Object_'.table'.nrow, "n",    1
+  endfor
+  nocheck selectObject: undefined
+  for .i to .n
+    plusObject: .id[.i]
+  endfor
+endproc
+
+#! ~~~ params
+#! in:
+#!   .id: >
+#!     The ID of a selection table
+#! internal: true
+#! ~~~
+#!
+#! Restore a saved selection table compatible with those from the
+#! selection plugin.
+#!
+procedure _testsimple_restoreSelection: .id
+  nocheck selectObject: undefined
+  for .i to Object_'.id'.nrow
+    nocheck plusObject: Object_'.id'[.i, "id"]
+  endfor
+endproc
+
+#! ~~~ params
+#! in:
+#!   .id: >
+#!     The ID of a selection table
+#! internal: true
+#! ~~~
+#!
+#! Subtract the contents of a selection table, compatible with those from
+#! the selection plugin, from the current selection.
+#!
+procedure _testsimple_minusSelection: .id
+  for .i to Object_'.id'.nrow
+    nocheck minusObject: Object_'.id'[.i, "id"]
+  endfor
+endproc
