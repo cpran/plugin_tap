@@ -57,18 +57,16 @@ procedure plan: .total_tests
     exitScript: "Already running a test plan"
   endif
 
-  .n = numberOfSelected()
-  for .i to .n
-    .id[.i] = selected(.i)
-  endfor
+  @_testsimple_saveSelection: "backup_selection"
+  .bkp = '_testsimple_saveSelection.table'
 
   select all
-  ok_selection.original = numberOfSelected()
+  minusObject: .bkp
+  @_testsimple_saveSelection: "original_selection"
+  .original = '_testsimple_saveSelection.table'
 
-  nocheck selectObject: undefined
-  for .i to .n
-    plusObject: .id[.i]
-  endfor
+  @_testsimple_restoreSelection: .bkp
+  removeObject: .bkp
 
   if .total_tests != undefined
     appendInfoLine: "1..", .total_tests
@@ -102,6 +100,8 @@ procedure done_testing ()
   if !variableExists("plan.current_plan")
     exitScript: "No test plan"
   endif
+
+  nocheck removeObject: plan.original
 
   if plan.total_tests == undefined
     appendInfoLine: "1..", plan.test
@@ -221,10 +221,14 @@ endproc
 #!
 procedure ok_selection ()
   select all
-  .current = numberOfSelected()
-  .result = .current == .original
+  nocheck minusObject: plan.original
+  @_testsimple_saveSelection: "final_selection"
+  .current = '_testsimple_saveSelection.table'
 
-  @ok: .result, "Removed all local objects"
+  @ok: Object_'plan.original'.nrow == Object_'.current'.nrow,
+    ... "Removed all local objects"
+
+  removeObject: .current
 endproc
 
 #!
