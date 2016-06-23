@@ -1,4 +1,5 @@
 - next: # unreleased
+  - Tests no longer depend on plan selection table
 - v0.0.9:
   - New:
     - Inherited development from testsimple
