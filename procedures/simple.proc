@@ -379,7 +379,7 @@ procedure _testsimple_saveSelection: .name$
     .id[.i] = selected(.i)
   endfor
   .table = Create Table with column names: .name$, 0,
-    ... "type name n id"
+    ... "type name id"
   for .i to .n
     selectObject: .id[.i]
     .type$ = extractWord$(selected$(), "")
@@ -389,7 +389,6 @@ procedure _testsimple_saveSelection: .name$
     Set string value:  Object_'.table'.nrow, "type", .type$
     Set string value:  Object_'.table'.nrow, "name", .name$
     Set numeric value: Object_'.table'.nrow, "id",   .id[.i]
-    Set numeric value: Object_'.table'.nrow, "n",    1
   endfor
   nocheck selectObject: undefined
   for .i to .n
