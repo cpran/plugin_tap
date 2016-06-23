@@ -62,6 +62,8 @@ procedure plan: .total_tests
 
   select all
   minusObject: .bkp
+
+  .original_number = numberOfSelected()
   @_testsimple_saveSelection: "original_selection"
   .original = '_testsimple_saveSelection.table'
 
@@ -225,7 +227,7 @@ procedure ok_selection ()
   @_testsimple_saveSelection: "final_selection"
   .current = '_testsimple_saveSelection.table'
 
-  @ok: Object_'plan.original'.nrow == Object_'.current'.nrow,
+  @ok: plan.original_number == Object_'.current'.nrow,
     ... "Removed all local objects"
 
   removeObject: .current

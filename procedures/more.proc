@@ -75,31 +75,41 @@ endproc
 #!
 procedure ok_selection ()
   select all
-  minusObject: plan.original
+  nocheck minusObject: plan.original
   @_testsimple_saveSelection: "final_selection"
   .current = '_testsimple_saveSelection.table'
 
-  @ok: Object_'plan.original'.nrow == Object_'.current'.nrow,
+  @ok: plan.original_number == Object_'.current'.nrow,
     ... "Removed all local objects"
 
   if !ok.value
-    if Object_'plan.original'.nrow > Object_'.current'.nrow
-      @diag: "  these original objects are missing:"
-      for .i to Object_'plan.original'.nrow
-        .oid = Object_'plan.original'[.i, "id"]
-        .name$ = Object_'plan.original'$[.i, "id"] + ". " +
-          ... Object_'plan.original'$[.i, "type"]  + " "  +
-          ... Object_'plan.original'$[.i, "name"]
+    if plan.original_number > Object_'.current'.nrow
+      @_ok_objectExists: plan.original
+      if '_ok_objectExists.return'
+        @diag: "  these original objects are missing:"
+        for .i to Object_'plan.original'.nrow
+          .oid = Object_'plan.original'[.i, "id"]
+          .name$ = Object_'plan.original'$[.i, "id"] + ". " +
+            ... Object_'plan.original'$[.i, "type"]  + " "  +
+            ... Object_'plan.original'$[.i, "name"]
 
-        @_ok_objectExists: .oid
-        if !'_ok_objectExists.return'
-          @diag: "  - " + .name$
-        endif
-      endfor
-    elsif Object_'plan.original'.nrow < Object_'.current'.nrow
-      @diag: "  these objects remain in the list:"
+          @_ok_objectExists: .oid
+          if !'_ok_objectExists.return'
+            @diag: "  - " + .name$
+          endif
+        endfor
+      else
+        @diag: "  some original objects are missing"
+      endif
+    elsif plan.original_number < Object_'.current'.nrow
       @_testsimple_restoreSelection: .current
-      @_testsimple_minusSelection: plan.original
+      @diag: "  these objects remain in the list:"
+
+      @_ok_objectExists: plan.original
+      if '_ok_objectExists.return'
+        @_testsimple_minusSelection: plan.original
+      endif
+
       for .i to numberOfSelected()
         @diag: "  - " + selected$(.i)
       endfor
