@@ -1,13 +1,13 @@
-# This script is part of the testsimple CPrAN plugin for Praat.
+# This script is part of the tap CPrAN plugin for Praat.
 # The latest version is available through CPrAN or at
-# <http://cpran.net/plugins/testsimple>
+# <http://cpran.net/plugins/tap>
 #
-# The testsimple plugin is free software: you can redistribute it
+# The tap plugin is free software: you can redistribute it
 # and/or modify it under the terms of the GNU General Public
 # License as published by the Free Software Foundation, either
 # version 3 of the License, or (at your option) any later version.
 #
-# The testsimple plugin is distributed in the hope that it will be
+# The tap plugin is distributed in the hope that it will be
 # useful, but WITHOUT ANY WARRANTY; without even the implied warranty
 # of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 # GNU General Public License for more details.
