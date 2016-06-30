@@ -563,7 +563,8 @@ endproc
 #! Abort all tests in case of some critical failure. Only argument is
 #! the reason why the test suite is aborted.
 #!
-procedure BAIL_OUT: .msg$
+procedure BAIL_OUT: .why$
+  @bail_out: .why$
 endproc
 
 #! ~~~ params
