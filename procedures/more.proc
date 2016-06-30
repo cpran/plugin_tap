@@ -121,6 +121,18 @@ endproc
 
 include ../../plugin_tap/procedures/simple.proc
 
+#! ~~~ params
+#! in:
+#!   .got$: >
+#!     The string to test
+#!   .expected$: >
+#!     The expected string
+#!   .msg$: >
+#!     The name of the test. A descriptive string with which to identify it.
+#! ~~~
+#!
+#! Test passes if both strings are equal.
+#!
 procedure is$: .got$, .expected$, .msg$
   if .got$ == .expected$
     @ok: 1, .msg$
@@ -133,6 +145,18 @@ procedure is$: .got$, .expected$, .msg$
   endif
 endproc
 
+#! ~~~ params
+#! in:
+#!   .got: >
+#!     The number to test
+#!   .expected: >
+#!     The expected number
+#!   .msg$: >
+#!     The name of the test. A descriptive string with which to identify it.
+#! ~~~
+#!
+#! Test passes if both numbers are equal.
+#!
 procedure is: .got, .expected, .msg$
   if .got == .expected
     @ok: 1, .msg$
@@ -145,6 +169,18 @@ procedure is: .got, .expected, .msg$
   endif
 endproc
 
+#! ~~~ params
+#! in:
+#!   .got$: >
+#!     The string to test
+#!   .expected$: >
+#!     The expected string
+#!   .msg$: >
+#!     The name of the test. A descriptive string with which to identify it.
+#! ~~~
+#!
+#! Test passes if both strings are different.
+#!
 procedure isnt$: .got$, .expected$, .msg$
   if .got$ != .expected$
     @ok: 1, .msg$
@@ -157,6 +193,18 @@ procedure isnt$: .got$, .expected$, .msg$
   endif
 endproc
 
+#! ~~~ params
+#! in:
+#!   .got: >
+#!     The number to test
+#!   .expected: >
+#!     The expected number
+#!   .msg$: >
+#!     The name of the test. A descriptive string with which to identify it.
+#! ~~~
+#!
+#! Test passes if both numbers are different.
+#!
 procedure isnt: .got, .expected, .msg$
   if .got != .expected
     @ok: 1, .msg$
@@ -169,12 +217,33 @@ procedure isnt: .got, .expected, .msg$
   endif
 endproc
 
+#! ~~~ params
+#! in:
+#!   .msg$: >
+#!     A message to print
+#! ~~~
+#!
+#! Prints a message in a way that doesn't interfere with the TAP output. The
+#! passed message can be a multiline string.
+#!
 procedure diag: .msg$
   .msg$ = .prefix$ + .msg$
   .msg$ = replace_regex$(.msg$, newline$, newline$ + .prefix$, 0)
   appendInfoLine: .msg$
 endproc
 
+#! ~~~ params
+#! in:
+#!   .got$: >
+#!     The string to test
+#!   .pattern$: >
+#!     A regular expression pattern to match against
+#!   .msg$: >
+#!     The name of the test. A descriptive string with which to identify it.
+#! ~~~
+#!
+#! Test passes if the string matches the pattern.
+#!
 procedure like: .got$, .pattern$, .msg$
   if index_regex(.got$, .pattern$)
     @ok: 1, .msg$
@@ -187,6 +256,18 @@ procedure like: .got$, .pattern$, .msg$
   endif
 endproc
 
+#! ~~~ params
+#! in:
+#!   .got$: >
+#!     The string to test
+#!   .pattern$: >
+#!     A regular expression pattern to match against
+#!   .msg$: >
+#!     The name of the test. A descriptive string with which to identify it.
+#! ~~~
+#!
+#! Test passes if the string does not match the pattern.
+#!
 procedure unlike: .got$, .pattern$, .msg$
   if !index_regex(.got$, .pattern$)
     @ok: 1, .msg$
@@ -199,6 +280,21 @@ procedure unlike: .got$, .pattern$, .msg$
   endif
 endproc
 
+#! ~~~ params
+#! in:
+#!   .got$: >
+#!     The string to test
+#!   .op$: >
+#!     An operator to use for comparison, as a string
+#!   .expected$: >
+#!     The expected string
+#!   .msg$: >
+#!     The name of the test. A descriptive string with which to identify it.
+#! ~~~
+#!
+#! Test passes if comparing both strings with the specified operator results
+#! in a true value.
+#!
 procedure cmp_ok$: .got$, .op$, .expected$, .msg$
   if .got$ '.op$' .expected$
     @ok: 1, .msg$
@@ -212,6 +308,21 @@ procedure cmp_ok$: .got$, .op$, .expected$, .msg$
   endif
 endproc
 
+#! ~~~ params
+#! in:
+#!   .got: >
+#!     The number to test
+#!   .op$: >
+#!     An operator to use for comparison, as a string
+#!   .expected: >
+#!     The expected number
+#!   .msg$: >
+#!     The name of the test. A descriptive string with which to identify it.
+#! ~~~
+#!
+#! Test passes if comparing both numbers with the specified operator results
+#! in a true value.
+#!
 procedure cmp_ok: .got, .op$, .expected, .msg$
   if .got '.op$' .expected
     @ok: 1, .msg$
@@ -225,6 +336,17 @@ procedure cmp_ok: .got, .op$, .expected, .msg$
   endif
 endproc
 
+#! ~~~ params
+#! in:
+#!   .id: >
+#!     The ID of an object
+#!   .msg$: >
+#!     The name of the test. A descriptive string with which to identify it.
+#! ~~~
+#!
+#! Test passes if the specified ID represents an object that exists in the
+#! Object list.
+#!
 procedure ok_exists: .id, .msg$
   @objectExists: .id
 
@@ -238,6 +360,17 @@ procedure ok_exists: .id, .msg$
   endif
 endproc
 
+#! ~~~ params
+#! in:
+#!   .id: >
+#!     The ID of an object
+#!   .msg$: >
+#!     The name of the test. A descriptive string with which to identify it.
+#! ~~~
+#!
+#! Test passes if the specified ID does not represent any object that exists in
+#! the Object list.
+#!
 procedure no_object: .id, .msg$
   @objectExists: .id
 
@@ -251,6 +384,16 @@ procedure no_object: .id, .msg$
   endif
 endproc
 
+#! ~~~ params
+#! in:
+#!   .id: >
+#!     The ID of an object
+#!   .msg$: >
+#!     The name of the test. A descriptive string with which to identify it.
+#! ~~~
+#!
+#! Test passes if the specified ID represents a currently selected object.
+#!
 procedure ok_selected: .id, .msg$
   @objectExists: .id
 
@@ -269,6 +412,17 @@ procedure ok_selected: .id, .msg$
   endif
 endproc
 
+#! ~~~ params
+#! in:
+#!   .id: >
+#!     The ID of an object
+#!   .msg$: >
+#!     The name of the test. A descriptive string with which to identify it.
+#! ~~~
+#!
+#! Test passes if the specified ID does not represent any currently selected
+#! object.
+#!
 procedure ok_unselected: .id, .msg$
   @_ok_objectExists: .id
 
@@ -287,6 +441,18 @@ procedure ok_unselected: .id, .msg$
   endif
 endproc
 
+#! ~~~ params
+#! in:
+#!   .a: >
+#!     The ID of an object
+#!   .b: >
+#!     The ID of another object
+#!   .msg$: >
+#!     The name of the test. A descriptive string with which to identify it.
+#! ~~~
+#!
+#! Test passes if the objects represented by both IDs are identical.
+#!
 procedure is_deeply: .a, .b, .msg$
   .result = undefined
 
@@ -362,18 +528,58 @@ procedure is_deeply: .a, .b, .msg$
   endfor
 endproc
 
+#! ~~~ params
+#! in:
+#!   .msg$: >
+#!     The name of the test. A descriptive string with which to identify it.
+#! ~~~
+#!
+#! Automatically pass a test with the specified message.
+#!
 procedure pass: .msg$
   @ok: 1, .msg$
 endproc
 
+#! ~~~ params
+#! in:
+#!   .msg$: >
+#!     The name of the test. A descriptive string with which to identify it.
+#! ~~~
+#!
+#! Automatically fail a test with the specified message.
+#!
 procedure fail: .msg$
   @ok: 0, .msg$
 endproc
 
+#! ~~~ params
+#! in:
+#!   .why$: >
+#!     The reason to abort the test suite.
+#! ~~~
+#!
+#! An alias for @bail_out, to more closely mimic the Test::More API.
+#!
+#! Abort all tests in case of some critical failure. Only argument is
+#! the reason why the test suite is aborted.
+#!
 procedure BAIL_OUT: .msg$
 endproc
 
-# From "selection" plugin, copied here to limit dependencies
+#! ~~~ params
+#! in:
+#!   .id: >
+#!     The ID of an object to test
+#! out:
+#!   .return: >
+#!     The result of the test.
+#! internal: true
+#! ~~~
+#!
+#! Returns true if the object exists, false otherwise.
+#!
+#! Copied from "selection" plugin to limit dependencies
+#!
 procedure _ok_objectExists (.id)
   .start = numberOfSelected()
   nocheck plusObject: .id
@@ -394,7 +600,20 @@ procedure _ok_objectExists (.id)
   endif
 endproc
 
-# From "selection" plugin, copied here to limit dependencies
+#! ~~~ params
+#! in:
+#!   .id: >
+#!     The ID of an object to test
+#! out:
+#!   .return: >
+#!     The result of the test.
+#! internal: true
+#! ~~~
+#!
+#! Returns true if the object is selected, false otherwise.
+#!
+#! Copied from "selection" plugin to limit dependencies
+#!
 procedure _ok_isSelected (.id)
   .n = numberOfSelected()
   .return = 0
