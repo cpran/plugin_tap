@@ -209,7 +209,7 @@ procedure ok_formula: .formula$, .name$
   else
     .value = 1
   endif
-  @ok(.value, .name$)
+  @ok: .value, .name$
 endproc
 
 #! ~~~ params
@@ -284,7 +284,7 @@ endproc
 #!
 procedure skip_all: .why$
   .keep_skipping = 1
-  @skip(undefined, .why$)
+  @skip: undefined, .why$
 endproc
 
 #! ~~~ params
