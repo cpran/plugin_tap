@@ -1,7 +1,7 @@
 ---
 Plugin: tap
 Homepage: https://gitlab.com/cpran/plugin_tap
-Version: 0.0.10
+Version: 0.0.11
 Maintainer: José Joaquín Atria <jjatria@gmail.com>
 Depends:
   praat: 5.0.0+
@@ -14,11 +14,11 @@ Description:
     The Test Anything Protocol (TAP) offers a unified format for a stream of
     test results that can be used for all sorts of testing.
 
-    This plugin implements an interface based in that of the Test::Simple and 
+    This plugin implements an interface based in that of the Test::Simple and
     the Test::More modules available for CPAN.
 
-    It allows a safe interface to run planned and unplanned tests, as well 
-    as to conditionally skip or mark them as incomplete tests. This is 
-    possible both for a specified number of tests, and as a test block. Mass 
+    It allows a safe interface to run planned and unplanned tests, as well
+    as to conditionally skip or mark them as incomplete tests. This is
+    possible both for a specified number of tests, and as a test block. Mass
     skipping, and test-suite interruption are also possible, as is the printing
     of messages without disrupting the TAP stream.
