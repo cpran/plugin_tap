@@ -227,7 +227,7 @@ endproc
 #!
 #! Test passes if number is truthy
 #!
-procedure istrue: .got, .msg$
+procedure is_true: .got, .msg$
   if .got
     @pass: .msg$
   else
@@ -249,7 +249,7 @@ endproc
 #!
 #! Test passes if both numbers are different.
 #!
-procedure isfalse: .got, .msg$
+procedure is_false: .got, .msg$
   if !.got
     @pass: .msg$
   else
