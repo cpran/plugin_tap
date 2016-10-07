@@ -29,6 +29,20 @@ id2 = Create SpeechSynthesizer: "English", "f5"
 @isnt:  got,  10, "failing test"
 @ok: !ok.value, "isnt fails with equal numerics"
 
+@istrue:  got, "positive number is true"
+@istrue:  got * -1, "negative number is true"
+@todo: 1, "failing test"
+@istrue:  0, "failing test"
+@ok: !ok.value, "zero is not true"
+
+@isfalse:  0, "zero is false"
+@todo: 1, "failing test"
+@isfalse:  got, "failing test"
+@ok: !ok.value, "positive number is not false"
+@todo: 1, "failing test"
+@isfalse:  got * -1, "failing test"
+@ok: !ok.value, "negative number is not false"
+
 # Print an explicit comment to the TAP stream
 @diag: "print a comment to the stream"
 

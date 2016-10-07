@@ -219,6 +219,50 @@ endproc
 
 #! ~~~ params
 #! in:
+#!   .got: >
+#!     The number to test
+#!   .msg$: >
+#!     The name of the test. A descriptive string with which to identify it.
+#! ~~~
+#!
+#! Test passes if number is truthy
+#!
+procedure istrue: .got, .msg$
+  if .got
+    @pass: .msg$
+  else
+    @fail: .msg$
+    if !ok.value
+      @diag: "       got: " + string$(.got)
+      @diag: "  expected: a truthy value (non-zero)"
+    endif
+  endif
+endproc
+
+#! ~~~ params
+#! in:
+#!   .got: >
+#!     The number to test
+#!   .msg$: >
+#!     The name of the test. A descriptive string with which to identify it.
+#! ~~~
+#!
+#! Test passes if both numbers are different.
+#!
+procedure isfalse: .got, .msg$
+  if !.got
+    @pass: .msg$
+  else
+    @fail: .msg$
+    if !ok.value
+      @diag: "       got: " + string$(.got)
+      @diag: "  expected: a falsy value (zero)"
+    endif
+  endif
+endproc
+
+#! ~~~ params
+#! in:
 #!   .msg$: >
 #!     A message to print
 #! ~~~
