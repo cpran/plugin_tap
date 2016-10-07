@@ -1,4 +1,15 @@
 - next: # unreleased
+- v0.0.11:
+  - New:
+    - Add support for test.fatal: if enabled, tests bail out
+      immediately after first failing test
+    - Add support for missing BAIL_OUT command, to complete
+      interface model from Test::More
+    - Add @is_true and @is_false for semantically correct boolean
+      tests
+  - Changes:
+    - Improved documentation and style
+    - Removed some superfluous tests
 - v0.0.10:
   - Fixed:
     - Tests no longer depend on plan selection table
