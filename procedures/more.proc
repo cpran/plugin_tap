@@ -392,9 +392,9 @@ endproc
 #! Object list.
 #!
 procedure ok_exists: .id, .msg$
-  @objectExists: .id
+  @_ok_objectExists: .id
 
-  if objectExists.return
+  if '_ok_objectExists.return'
     @pass: .msg$
   else
     @fail: .msg$
@@ -416,9 +416,9 @@ endproc
 #! the Object list.
 #!
 procedure no_object: .id, .msg$
-  @objectExists: .id
+  @_ok_objectExists: .id
 
-  if !objectExists.return
+  if !'_ok_objectExists.return'
     @pass: .msg$
   else
     @fail: .msg$
@@ -439,11 +439,11 @@ endproc
 #! Test passes if the specified ID represents a currently selected object.
 #!
 procedure ok_selected: .id, .msg$
-  @objectExists: .id
+  @_ok_objectExists: .id
 
-  if objectExists.return
-    @isSelected: .id
-    if isSelected.return
+  if '_ok_objectExists.return'
+    @_ok_isSelected: .id
+    if '_ok_isSelected.return'
       @pass: .msg$
     else
       @fail: .msg$
@@ -471,8 +471,8 @@ procedure ok_unselected: .id, .msg$
   @_ok_objectExists: .id
 
   if '_ok_objectExists.return'
-    @isSelected: .id
-    if !isSelected.return
+    @_ok_isSelected: .id
+    if !'_ok_isSelected.return'
       @pass: .msg$
     else
       @fail: .msg$
