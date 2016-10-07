@@ -135,9 +135,9 @@ include ../../plugin_tap/procedures/simple.proc
 #!
 procedure is$: .got$, .expected$, .msg$
   if .got$ == .expected$
-    @ok: 1, .msg$
+    @pass: .msg$
   else
-    @ok: 0, .msg$
+    @fail: .msg$
     if !ok.value
       @diag: "       got: """      + .got$ + """"
       @diag: "  expected: """ + .expected$ + """"
@@ -159,9 +159,9 @@ endproc
 #!
 procedure is: .got, .expected, .msg$
   if .got == .expected
-    @ok: 1, .msg$
+    @pass: .msg$
   else
-    @ok: 0, .msg$
+    @fail: .msg$
     if !ok.value
       @diag: "       got: " + string$(.got)
       @diag: "  expected: " + string$(.expected)
@@ -183,9 +183,9 @@ endproc
 #!
 procedure isnt$: .got$, .expected$, .msg$
   if .got$ != .expected$
-    @ok: 1, .msg$
+    @pass: .msg$
   else
-    @ok: 0, .msg$
+    @fail: .msg$
     if !ok.value
       @diag: "       got: """      + .got$ + """"
       @diag: "  expected: anything else"
@@ -207,9 +207,9 @@ endproc
 #!
 procedure isnt: .got, .expected, .msg$
   if .got != .expected
-    @ok: 1, .msg$
+    @pass: .msg$
   else
-    @ok: 0, .msg$
+    @fail: .msg$
     if !ok.value
       @diag: "       got: " + string$(.got)
       @diag: "  expected: anything else"
@@ -246,9 +246,9 @@ endproc
 #!
 procedure like: .got$, .pattern$, .msg$
   if index_regex(.got$, .pattern$)
-    @ok: 1, .msg$
+    @pass: .msg$
   else
-    @ok: 0, .msg$
+    @fail: .msg$
     if !ok.value
       @diag: "                '" + .got$     + "'"
       @diag: "  doesn't match /" + .pattern$ + "/"
@@ -270,9 +270,9 @@ endproc
 #!
 procedure unlike: .got$, .pattern$, .msg$
   if !index_regex(.got$, .pattern$)
-    @ok: 1, .msg$
+    @pass: .msg$
   else
-    @ok: 0, .msg$
+    @fail: .msg$
     if !ok.value
       @diag: "                '" + .got$     + "'"
       @diag: "        matches /" + .pattern$ + "/"
@@ -297,9 +297,9 @@ endproc
 #!
 procedure cmp_ok$: .got$, .op$, .expected$, .msg$
   if .got$ '.op$' .expected$
-    @ok: 1, .msg$
+    @pass: .msg$
   else
-    @ok: 0, .msg$
+    @fail: .msg$
     if !ok.value
       @diag: "  '" + .got$      + "'"
       @diag: "      " + .op$
@@ -325,9 +325,9 @@ endproc
 #!
 procedure cmp_ok: .got, .op$, .expected, .msg$
   if .got '.op$' .expected
-    @ok: 1, .msg$
+    @pass: .msg$
   else
-    @ok: 0, .msg$
+    @fail: .msg$
     if !ok.value
       @diag: "  '" + string$(.got)      + "'"
       @diag: "      " + .op$
@@ -351,9 +351,9 @@ procedure ok_exists: .id, .msg$
   @objectExists: .id
 
   if objectExists.return
-    @ok: 1, .msg$
+    @pass: .msg$
   else
-    @ok: 0, .msg$
+    @fail: .msg$
     if !ok.value
       @diag: "  object '" + string$(.id) + "' doesn't exist"
     endif
@@ -375,9 +375,9 @@ procedure no_object: .id, .msg$
   @objectExists: .id
 
   if !objectExists.return
-    @ok: 1, .msg$
+    @pass: .msg$
   else
-    @ok: 0, .msg$
+    @fail: .msg$
     if !ok.value
       @diag: "  object '" + string$(.id) + "' exists"
     endif
@@ -400,9 +400,9 @@ procedure ok_selected: .id, .msg$
   if objectExists.return
     @isSelected: .id
     if isSelected.return
-      @ok: 1, .msg$
+      @pass: .msg$
     else
-      @ok: 0, .msg$
+      @fail: .msg$
       if !ok.value
         @diag: "  object '" + string$(.id) + "' is not selected"
       endif
@@ -429,9 +429,9 @@ procedure ok_unselected: .id, .msg$
   if '_ok_objectExists.return'
     @isSelected: .id
     if !isSelected.return
-      @ok: 1, .msg$
+      @pass: .msg$
     else
-      @ok: 0, .msg$
+      @fail: .msg$
       if !ok.value
         @diag: "  object '" + string$(.id) + "' is selected"
       endif
@@ -488,9 +488,9 @@ procedure is_deeply: .a, .b, .msg$
 
   if .result == undefined
     if objectsAreIdentical(.a, .b)
-      @ok: 1, .msg$
+      @pass: .msg$
     else
-      @ok: 0, .msg$
+      @fail: .msg$
       if !ok.value
         @diag: "      objects"
         @diag: "  " + .adiag$
@@ -500,7 +500,7 @@ procedure is_deeply: .a, .b, .msg$
       endif
     endif
   else
-    @ok: 0, .msg$
+    @fail: .msg$
     if !ok.value
       if !.aexists and !.bexists
         @diag: "      neither object"
