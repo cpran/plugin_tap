@@ -17,6 +17,11 @@
 #
 # Copyright 2015-2016 Jose Joaquin Atria
 
+ok.level = 0
+if !variableExists("test.fatal")
+  test.fatal = 0
+endif
+
 #!
 #! # A simple test suite for Praat
 #!
@@ -131,7 +136,9 @@ endproc
 #! The basic exposed test procedure.
 #!
 procedure ok: .value, .name$
+  @_start_test()
   @_testsimple_ok()
+  @_end_test()
 endproc
 
 #! ~~~ params
@@ -204,12 +211,16 @@ endproc
 #! and those that evaluate to `false` will fail.
 #!
 procedure ok_formula: .formula$, .name$
+  @_start_test()
+
   if plan.skip != undefined and !plan.skip
     .value = Calculator: .formula$
   else
     .value = 1
   endif
   @ok: .value, .name$
+
+  @_end_test()
 endproc
 
 #! ~~~ params
@@ -222,6 +233,8 @@ endproc
 #! the test will fail.
 #!
 procedure ok_selection ()
+  @_start_test()
+
   select all
   nocheck minusObject: plan.original
   @_testsimple_saveSelection: "final_selection"
@@ -231,6 +244,8 @@ procedure ok_selection ()
     ... "Removed all local objects"
 
   removeObject: .current
+
+  @_end_test()
 endproc
 
 #!
@@ -429,4 +444,29 @@ procedure _testsimple_minusSelection: .id
   for .i to Object_'.id'.nrow
     nocheck minusObject: Object_'.id'[.i, "id"]
   endfor
+endproc
+
+#! ~~~ params
+#! internal: true
+#! ~~~
+#!
+#! Handle logic for starting a test
+#!
+procedure _start_test()
+  # Increase the test level, to allow for detection of top-level tests
+  ok.level += 1
+endproc
+
+#! ~~~ params
+#! internal: true
+#! ~~~
+#!
+#! Handle logic for ending a test
+#!
+procedure _end_test()
+  # Bail out if a top-level test failed while test.fatal was true
+  if test.fatal and !ok.value and ok.level == 1
+    @bail_out: "Test failed while test.fatal was enabled"
+  endif
+  ok.level -= 1
 endproc

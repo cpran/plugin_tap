@@ -53,12 +53,16 @@ endif
 #! an additional diagnostic line.
 #!
 procedure ok: .value, .name$
+  @_start_test()
+
   @_testsimple_ok()
 
   .todo$ = if ok.todo then "(TODO) " else "" fi
   if !ok.value
     @diag: "Failed " + .todo$ + "test '" + .name$ + "'"
   endif
+
+  @_end_test()
 endproc
 
 #! ~~~ params
@@ -74,6 +78,8 @@ endproc
 #! printed, with their names and ID numbers.
 #!
 procedure ok_selection ()
+  @_start_test()
+
   select all
   nocheck minusObject: plan.original
   @_testsimple_saveSelection: "final_selection"
@@ -117,6 +123,8 @@ procedure ok_selection ()
   endif
 
   removeObject: .current
+
+  @_end_test()
 endproc
 
 include ../../plugin_tap/procedures/simple.proc
@@ -134,6 +142,8 @@ include ../../plugin_tap/procedures/simple.proc
 #! Test passes if both strings are equal.
 #!
 procedure is$: .got$, .expected$, .msg$
+  @_start_test()
+
   if .got$ == .expected$
     @pass: .msg$
   else
@@ -143,6 +153,8 @@ procedure is$: .got$, .expected$, .msg$
       @diag: "  expected: """ + .expected$ + """"
     endif
   endif
+
+  @_end_test()
 endproc
 
 #! ~~~ params
@@ -158,6 +170,8 @@ endproc
 #! Test passes if both numbers are equal.
 #!
 procedure is: .got, .expected, .msg$
+  @_start_test()
+
   if .got == .expected
     @pass: .msg$
   else
@@ -167,6 +181,8 @@ procedure is: .got, .expected, .msg$
       @diag: "  expected: " + string$(.expected)
     endif
   endif
+
+  @_end_test()
 endproc
 
 #! ~~~ params
@@ -182,6 +198,8 @@ endproc
 #! Test passes if both strings are different.
 #!
 procedure isnt$: .got$, .expected$, .msg$
+  @_start_test()
+
   if .got$ != .expected$
     @pass: .msg$
   else
@@ -191,6 +209,8 @@ procedure isnt$: .got$, .expected$, .msg$
       @diag: "  expected: anything else"
     endif
   endif
+
+  @_end_test()
 endproc
 
 #! ~~~ params
@@ -206,6 +226,8 @@ endproc
 #! Test passes if both numbers are different.
 #!
 procedure isnt: .got, .expected, .msg$
+  @_start_test()
+
   if .got != .expected
     @pass: .msg$
   else
@@ -215,6 +237,8 @@ procedure isnt: .got, .expected, .msg$
       @diag: "  expected: anything else"
     endif
   endif
+
+  @_end_test()
 endproc
 
 #! ~~~ params
@@ -228,6 +252,8 @@ endproc
 #! Test passes if number is truthy
 #!
 procedure is_true: .got, .msg$
+  @_start_test()
+
   if .got
     @pass: .msg$
   else
@@ -237,6 +263,8 @@ procedure is_true: .got, .msg$
       @diag: "  expected: a truthy value (non-zero)"
     endif
   endif
+
+  @_end_test()
 endproc
 
 #! ~~~ params
@@ -250,6 +278,8 @@ endproc
 #! Test passes if both numbers are different.
 #!
 procedure is_false: .got, .msg$
+  @_start_test()
+
   if !.got
     @pass: .msg$
   else
@@ -259,6 +289,8 @@ procedure is_false: .got, .msg$
       @diag: "  expected: a falsy value (zero)"
     endif
   endif
+
+  @_end_test()
 endproc
 
 #! ~~~ params
@@ -289,6 +321,8 @@ endproc
 #! Test passes if the string matches the pattern.
 #!
 procedure like: .got$, .pattern$, .msg$
+  @_start_test()
+
   if index_regex(.got$, .pattern$)
     @pass: .msg$
   else
@@ -298,6 +332,8 @@ procedure like: .got$, .pattern$, .msg$
       @diag: "  doesn't match /" + .pattern$ + "/"
     endif
   endif
+
+  @_end_test()
 endproc
 
 #! ~~~ params
@@ -313,6 +349,8 @@ endproc
 #! Test passes if the string does not match the pattern.
 #!
 procedure unlike: .got$, .pattern$, .msg$
+  @_start_test()
+
   if !index_regex(.got$, .pattern$)
     @pass: .msg$
   else
@@ -322,6 +360,8 @@ procedure unlike: .got$, .pattern$, .msg$
       @diag: "        matches /" + .pattern$ + "/"
     endif
   endif
+
+  @_end_test()
 endproc
 
 #! ~~~ params
@@ -340,6 +380,8 @@ endproc
 #! in a true value.
 #!
 procedure cmp_ok$: .got$, .op$, .expected$, .msg$
+  @_start_test()
+
   if .got$ '.op$' .expected$
     @pass: .msg$
   else
@@ -350,6 +392,8 @@ procedure cmp_ok$: .got$, .op$, .expected$, .msg$
       @diag: "  '" + .expected$ + "'"
     endif
   endif
+
+  @_end_test()
 endproc
 
 #! ~~~ params
@@ -368,6 +412,8 @@ endproc
 #! in a true value.
 #!
 procedure cmp_ok: .got, .op$, .expected, .msg$
+  @_start_test()
+
   if .got '.op$' .expected
     @pass: .msg$
   else
@@ -378,6 +424,8 @@ procedure cmp_ok: .got, .op$, .expected, .msg$
       @diag: "  '" + string$(.expected) + "'"
     endif
   endif
+
+  @_end_test()
 endproc
 
 #! ~~~ params
@@ -392,6 +440,8 @@ endproc
 #! Object list.
 #!
 procedure ok_exists: .id, .msg$
+  @_start_test()
+
   @_ok_objectExists: .id
 
   if '_ok_objectExists.return'
@@ -402,6 +452,8 @@ procedure ok_exists: .id, .msg$
       @diag: "  object '" + string$(.id) + "' doesn't exist"
     endif
   endif
+
+  @_end_test()
 endproc
 
 #! ~~~ params
@@ -416,6 +468,8 @@ endproc
 #! the Object list.
 #!
 procedure no_object: .id, .msg$
+  @_start_test()
+
   @_ok_objectExists: .id
 
   if !'_ok_objectExists.return'
@@ -426,6 +480,8 @@ procedure no_object: .id, .msg$
       @diag: "  object '" + string$(.id) + "' exists"
     endif
   endif
+
+  @_end_test()
 endproc
 
 #! ~~~ params
@@ -439,6 +495,8 @@ endproc
 #! Test passes if the specified ID represents a currently selected object.
 #!
 procedure ok_selected: .id, .msg$
+  @_start_test()
+
   @_ok_objectExists: .id
 
   if '_ok_objectExists.return'
@@ -454,6 +512,8 @@ procedure ok_selected: .id, .msg$
   else
     @ok_exists: 0, .msg$
   endif
+
+  @_end_test()
 endproc
 
 #! ~~~ params
@@ -468,6 +528,8 @@ endproc
 #! object.
 #!
 procedure ok_unselected: .id, .msg$
+  @_start_test()
+
   @_ok_objectExists: .id
 
   if '_ok_objectExists.return'
@@ -483,6 +545,8 @@ procedure ok_unselected: .id, .msg$
   else
     @ok_exists: 0, .msg$
   endif
+
+  @_end_test()
 endproc
 
 #! ~~~ params
@@ -498,6 +562,8 @@ endproc
 #! Test passes if the objects represented by both IDs are identical.
 #!
 procedure is_deeply: .a, .b, .msg$
+  @_start_test()
+
   .result = undefined
 
   .n = numberOfSelected()
@@ -570,6 +636,8 @@ procedure is_deeply: .a, .b, .msg$
   for .i to .n
     plusObject: .id[.n]
   endfor
+
+  @_end_test()
 endproc
 
 #! ~~~ params
@@ -581,7 +649,9 @@ endproc
 #! Automatically pass a test with the specified message.
 #!
 procedure pass: .msg$
+  @_start_test()
   @ok: 1, .msg$
+  @_end_test()
 endproc
 
 #! ~~~ params
@@ -593,7 +663,9 @@ endproc
 #! Automatically fail a test with the specified message.
 #!
 procedure fail: .msg$
+  @_start_test()
   @ok: 0, .msg$
+  @_end_test()
 endproc
 
 #! ~~~ params
