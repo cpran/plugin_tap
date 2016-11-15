@@ -186,7 +186,7 @@ procedure _testsimple_ok ()
     ok.value = 0
   endif
 
-  appendInfo: if ok.name$ != "" then " - " + ok.name$ else "" fi
+  appendInfo: if !ok.skip and ok.name$ != "" then " - " + ok.name$ else "" fi
   if ok.skip
     appendInfoLine: " # SKIP " + skip.why$
   elsif ok.todo
