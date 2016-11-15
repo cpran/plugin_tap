@@ -465,7 +465,7 @@ endproc
 #!
 procedure _end_test()
   # Bail out if a top-level test failed while test.fatal was true
-  if test.fatal and !ok.value and ok.level == 1
+  if test.fatal and !ok.todo and !ok.skip and !ok.value and ok.level == 1
     @bail_out: "Test failed while test.fatal was enabled"
   endif
   ok.level -= 1
