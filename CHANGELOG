@@ -2,7 +2,8 @@
 - v0.0.11:
   - New:
     - Add support for test.fatal: if enabled, tests bail out
-      immediately after first failing test
+      immediately after first meaningful failing test (ie. not one
+      using TODO or SKIP)
     - Add support for missing BAIL_OUT command, to complete
       interface model from Test::More
     - Add @is_true and @is_false for semantically correct boolean
