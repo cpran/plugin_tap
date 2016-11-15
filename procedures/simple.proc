@@ -276,8 +276,11 @@ endproc
 #! Second argument is the reason why they are skipped, which is printed next
 #! to their name.
 #!
-procedure skip: .how_many, .why$
-  plan.skip = .how_many
+procedure skip: .how_many, .reason$
+  if !variableExists("skip_all.keep_skipping")
+    plan.skip = .how_many
+    .why$ = .reason$
+  endif
 endproc
 
 #! ~~~ params
@@ -298,8 +301,8 @@ endproc
 #! printed next to their names.
 #!
 procedure skip_all: .why$
-  .keep_skipping = 1
   @skip: undefined, .why$
+  .keep_skipping = 1
 endproc
 
 #! ~~~ params
