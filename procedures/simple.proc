@@ -348,7 +348,9 @@ endproc
 #! next to their name.
 #!
 procedure todo: .how_many, .why$
-  plan.todo = .how_many
+  if !variableExists("plan.skip") or !plan.skip
+    plan.todo = .how_many
+  endif
 endproc
 
 #! ~~~ params
