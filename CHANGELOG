@@ -1,4 +1,7 @@
 - next: # unreleased
+- v0.0.12:
+  - Fix:
+    - Removed a dependency cycle with utils
 - v0.0.11:
   - New:
     - Add support for test.fatal: if enabled, tests bail out
