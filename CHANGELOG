@@ -1,4 +1,9 @@
 - next: # unreleased
+- v0.0.13:
+  - Changes:
+    - Simplified CI script
+  - Fix:
+    - Support undefined values in is_true and is_false
 - v0.0.12:
   - Fix:
     - Removed a dependency cycle with utils
