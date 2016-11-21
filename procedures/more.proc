@@ -254,7 +254,7 @@ endproc
 procedure is_true: .got, .msg$
   @_start_test()
 
-  if .got
+  if .got != undefined and .got
     @pass: .msg$
   else
     @fail: .msg$
@@ -280,7 +280,7 @@ endproc
 procedure is_false: .got, .msg$
   @_start_test()
 
-  if !.got
+  if .got != undefined and !.got
     @pass: .msg$
   else
     @fail: .msg$
