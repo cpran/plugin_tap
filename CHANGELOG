@@ -1,4 +1,7 @@
 - next: # unreleased
+- v0.0.14:
+  - Fix:
+    - Tests pass under 6.0.36 by removing deprecated command parameters
 - v0.0.13:
   - Changes:
     - Simplified CI script
