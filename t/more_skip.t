@@ -5,8 +5,8 @@ include ../procedures/more.proc
 got$ = "hello"
 got  = 10
 
-id1 = Create SpeechSynthesizer: "English", "default"
-id2 = Create SpeechSynthesizer: "English", "f5"
+id1 = Create TextGrid: 0, 1, "test grid", "grid"
+id2 = Create TextGrid: 0, 1, "test grid", ""
 
 @skip: undefined, "skip failing tests"
 
